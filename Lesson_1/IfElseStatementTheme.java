@@ -54,7 +54,7 @@ public class IfElseStatementTheme {
                 System.out.println("отрицательным\n");
             }
         } else {
-            System.out.println("Число " + number + " равно нулю\n");
+            System.out.println("Число равно нулю\n");
         }
 
         System.out.println("#4. Поиск одинаковых цифр в числах");
@@ -62,11 +62,11 @@ public class IfElseStatementTheme {
         int number2 = 223;
         int hundreds1 = number1 / 100;
         int hundreds2 = number2 / 100;
-        int dozens1 = (number1 % 100) / 10;
-        int dozens2 = (number2 % 100) / 10;
-        int units1 = (number1 % 100) % 10;
-        int units2 = (number2 % 100) % 10;
-        if ((hundreds1 != hundreds2) && (dozens1 != dozens2) && (units1 != units2)) {
+        int tens1 = (number1 % 100) / 10;
+        int tens2 = (number2 % 100) / 10;
+        int ones1 = number1 % 10;
+        int ones2 = number2 % 10;
+        if ((hundreds1 != hundreds2) && (tens1 != tens2) && (ones1 != ones2)) {
             System.out.println("Все цифры в разрядах разные\n");
         } else {
             System.out.println("Первое число = " + number1 + "\n" +
@@ -74,11 +74,11 @@ public class IfElseStatementTheme {
             if (hundreds1 == hundreds2) {
                 System.out.println("Одинаковая цифра - " + hundreds1 + " в разряде сотен (2)");
             }
-            if (dozens1 == dozens2) {
-                System.out.println("Одинаковая цифра - " + dozens1 + " в разряде десятков (1)");
+            if (tens1 == tens2) {
+                System.out.println("Одинаковая цифра - " + tens1 + " в разряде десятков (1)");
             }
-            if (units1 == units2) {
-                System.out.println("Одинаковая цифра - " + units1 + " в разряде единиц (0)\n");
+            if (ones1 == ones2) {
+                System.out.println("Одинаковая цифра - " + ones1 + " в разряде единиц (0)\n");
             }
         }
 
@@ -96,57 +96,50 @@ public class IfElseStatementTheme {
 
         System.out.println("#6. Подсчет суммы вклада и начисленных банком %");
         double deposit = 300_000;
-        double interest;
+        double interest = 10;
         if (deposit < 100_000) {
             interest = 5;
-        } else if (deposit >= 100_000 && deposit <= 300_000) {
+        }
+        if (deposit >= 100_000 && deposit <= 300_000) {
             interest = 7;
-        } else {
-            interest = 10;
         }
         System.out.println("Сумма вклада = " + deposit + "\n" + 
                 "Начисленный % = " + (deposit / 100 * interest) + "\n" + 
                 "Итоговая сумма с % = " + (deposit + (deposit / 100 * interest)) + "\n");
 
         System.out.println("#7. Определение оценки по предметам");
-        int historyRate = 59;
-        int codingRate = 92;
-        int historyMark;
-        int codingMark;
-        double averageRate;
-        double averageMark;
-        if (historyRate > 91) {
+        int historyPercent = 59;
+        int codingPercent = 91;
+        int historyMark = 2;
+        int codingMark = 2;
+        if (historyPercent > 91) {
             historyMark = 5;
-        } else if (historyRate > 73) {
+        } else if (historyPercent > 73) {
             historyMark = 4;
-        } else if (historyRate > 60) {
+        } else if (historyPercent > 60) {
             historyMark = 3;
-        } else {
-            historyMark = 2;
         }
-        if (codingRate > 91) {
+        if (codingPercent > 91) {
             codingMark = 5;
-        } else if (codingRate > 73) {
+        } else if (codingPercent > 73) {
             codingMark = 4;
-        } else if (codingRate > 60) {
+        } else if (codingPercent > 60) {
             codingMark = 3;
-        } else {
-            codingMark = 2;
         }
-        averageRate = (double) (historyRate + codingRate) / 2;
-        averageMark = (double) (historyMark + codingMark) / 2;
+        double averagePercent = (double) (historyPercent + codingPercent) / 2;
+        double averageMark = (double) (historyMark + codingMark) / 2;
         System.out.println("История - " + historyMark + "\n" +
                 "Программирование - " + codingMark + "\n" +
                 "Средний бал оценок по предметам - " + averageMark + "\n" +
-                "Средний % по предметам - " + averageRate + "\n");
+                "Средний % по предметам - " + averagePercent + "\n");
 
         System.out.println("#8. Расчет прибыли за год");
         int rent = 5000;
         int income = 13000;
         int cost = 9000;
-        int profit = income - rent - cost;
+        int profit = (income - rent - cost) * 12;
         System.out.print("Прибыль за год: ");
-        if (profit < 0) {
+        if (profit <= 0) {
             System.out.print(profit);
         } else {
             System.out.print("+" + profit);
