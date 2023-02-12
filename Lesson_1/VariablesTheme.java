@@ -56,15 +56,15 @@ public class VariablesTheme {
         System.out.println("после перестановки number1 = " + number1 + " и number2 = " + number2 + "\n" +
                 "С помощью арифметических операций:\n" + 
                 "до перестановки number1 = " + number1 + " и number2 = " + number2);
-        number2 = number2 + number1;
+        number2 += number1;
         number1 = number2 - number1;
-        number2 = number2 - number1;
+        number2 -= number1;
         System.out.println("после перестановки number1 = " + number1 + " и number2 = " + number2 + "\n" +
                 "С помощью побитовой операции:\n" + 
                 "до перестановки number1 = " + number1 + " и number2 = " + number2);
-        number1 = number1 ^ number2;
-        number2 = number2 ^ number1;
-        number1 = number1 ^ number2;
+        number1 ^= number2;
+        number2 ^= number1;
+        number1 ^= number2;
         System.out.println("после перестановки number1 = " + number1 + " и number2 = " + number2 + "\n");
 
         System.out.println("#6. Вывод символов и их кодов");
