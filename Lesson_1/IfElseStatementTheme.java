@@ -54,7 +54,7 @@ public class IfElseStatementTheme {
                 System.out.println("отрицательным\n");
             }
         } else {
-            System.out.println("Число равно нулю\n");
+            System.out.println("Число равно " + number + "\n");
         }
 
         System.out.println("#4. Поиск одинаковых цифр в числах");
@@ -99,8 +99,7 @@ public class IfElseStatementTheme {
         double interest = 10;
         if (deposit < 100_000) {
             interest = 5;
-        }
-        if (deposit >= 100_000 && deposit <= 300_000) {
+        } else if (deposit >= 100_000 && deposit <= 300_000) {
             interest = 7;
         }
         System.out.println("Сумма вклада = " + deposit + "\n" + 
@@ -149,34 +148,35 @@ public class IfElseStatementTheme {
         System.out.println("#9. Подсчет количества банкнот");
         int requiredSum = 567;
         int hundredsRequired = requiredSum / 100;
-        int dozensRequired = (requiredSum % 100) / 10;
-        int unitsRequired = (requiredSum % 100) % 10;
+        int tensRequired = (requiredSum % 100) / 10;
+        int onesRequired = (requiredSum % 100) % 10;
         int hundredsInAtm = 10;
-        int dozensInAtm = 5;
-        int unitsInAtm = 50;
+        int tensInAtm = 5;
+        int onesInAtm = 50;
         int total = 0;
-        if (((hundredsInAtm * 100) + (dozensInAtm * 10) + unitsInAtm) < requiredSum) {
+        if (((hundredsInAtm * 100) + (tensInAtm * 10) + onesInAtm) < requiredSum) {
             System.out.println("В банкомате не достаточно купюр для выдачи суммы " + requiredSum + "\n");
         } else {
-            System.out.println("Будет выдано:");
             if (hundredsInAtm >= hundredsRequired) {
                 total += hundredsRequired * 100;
-                System.out.println(hundredsRequired + " банкнот номиналом 100");
             } else {
-                System.out.println(hundredsInAtm + " банкнот номиналом 100");
                 total += hundredsInAtm * 100;
-                dozensRequired += (hundredsRequired - hundredsInAtm) * 10;
+                tensRequired += (hundredsRequired - hundredsInAtm) * 10;
+                hundredsRequired = hundredsInAtm;
             }
-            if (dozensInAtm >= dozensRequired) {
-                total += dozensRequired * 10;
-                System.out.println(dozensRequired + " банкнот номиналом 10");
+            if (tensInAtm >= tensRequired) {
+                total += tensRequired * 10;
             } else {
-                System.out.println(dozensInAtm + " банкнот номиналом 10");
-                total += dozensInAtm * 10;
-                unitsRequired += (dozensRequired - dozensInAtm) * 10;
+                total += tensInAtm * 10;
+                onesRequired += (tensRequired - tensInAtm) * 10;
+                tensRequired = tensInAtm;
             }
-            total += unitsRequired;
-            System.out.println(unitsRequired + " банкнот номиналом 1\n" + 
+            total += onesRequired;
+
+            System.out.println("Будет выдано:\n" +
+                    hundredsRequired + " банкнот номиналом 100\n" + 
+                    tensRequired + " банкнот номиналом 10\n" + 
+                    onesRequired + " банкнот номиналом 1\n" + 
                     "Всего выдано на сумму " + total);
         }
     }
