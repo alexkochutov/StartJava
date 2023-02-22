@@ -41,36 +41,36 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("#3. Проверка числа");
-        int number = -10023;
-        if (number != 0) {
-            if (number % 2 == 0) {
-                System.out.print("Число " + number + " является четным и ");
+        int num = -10023;
+        if (num != 0) {
+            if (num % 2 == 0) {
+                System.out.print("Число " + num + " является четным и ");
             } else {
-                System.out.print("Число " + number + " является нечетным и ");
+                System.out.print("Число " + num + " является нечетным и ");
             }
-            if (number > 0) {
+            if (num > 0) {
                 System.out.println("положительным\n");
             } else {
                 System.out.println("отрицательным\n");
             }
         } else {
-            System.out.println("Число равно " + number + "\n");
+            System.out.println("Число равно " + num + "\n");
         }
 
         System.out.println("#4. Поиск одинаковых цифр в числах");
-        int number1 = 123;
-        int number2 = 223;
-        int hundreds1 = number1 / 100;
-        int hundreds2 = number2 / 100;
-        int tens1 = (number1 % 100) / 10;
-        int tens2 = (number2 % 100) / 10;
-        int ones1 = number1 % 10;
-        int ones2 = number2 % 10;
+        num1 = 123;
+        num2 = 223;
+        int hundreds1 = num1 / 100;
+        int hundreds2 = num2 / 100;
+        int tens1 = (num1 % 100) / 10;
+        int tens2 = (num2 % 100) / 10;
+        int ones1 = num1 % 10;
+        int ones2 = num2 % 10;
         if ((hundreds1 != hundreds2) && (tens1 != tens2) && (ones1 != ones2)) {
             System.out.println("Все цифры в разрядах разные\n");
         } else {
-            System.out.println("Первое число = " + number1 + "\n" +
-                    "Второе число = " + number2);
+            System.out.println("Первое число = " + num1 + "\n" +
+                    "Второе число = " + num2);
             if (hundreds1 == hundreds2) {
                 System.out.println("Одинаковая цифра - " + hundreds1 + " в разряде сотен (2)");
             }
@@ -108,9 +108,9 @@ public class IfElseStatementTheme {
 
         System.out.println("#7. Определение оценки по предметам");
         int historyPercent = 59;
-        int codingPercent = 91;
+        int programmingPercent = 91;
         int historyMark = 2;
-        int codingMark = 2;
+        int programmingMark = 2;
         if (historyPercent > 91) {
             historyMark = 5;
         } else if (historyPercent > 73) {
@@ -118,17 +118,17 @@ public class IfElseStatementTheme {
         } else if (historyPercent > 60) {
             historyMark = 3;
         }
-        if (codingPercent > 91) {
-            codingMark = 5;
-        } else if (codingPercent > 73) {
-            codingMark = 4;
-        } else if (codingPercent > 60) {
-            codingMark = 3;
+        if (programmingPercent > 91) {
+            programmingMark = 5;
+        } else if (programmingPercent > 73) {
+            programmingMark = 4;
+        } else if (programmingPercent > 60) {
+            programmingMark = 3;
         }
-        double averagePercent = (double) (historyPercent + codingPercent) / 2;
-        double averageMark = (double) (historyMark + codingMark) / 2;
+        double averagePercent = (double) (historyPercent + programmingPercent) / 2;
+        double averageMark = (double) (historyMark + programmingMark) / 2;
         System.out.println("История - " + historyMark + "\n" +
-                "Программирование - " + codingMark + "\n" +
+                "Программирование - " + programmingMark + "\n" +
                 "Средний бал оценок по предметам - " + averageMark + "\n" +
                 "Средний % по предметам - " + averagePercent + "\n");
 
@@ -172,7 +172,6 @@ public class IfElseStatementTheme {
                 tensRequired = tensInAtm;
             }
             total += onesRequired;
-
             System.out.println("Будет выдано:\n" +
                     hundredsRequired + " банкнот номиналом 100\n" + 
                     tensRequired + " банкнот номиналом 10\n" + 
