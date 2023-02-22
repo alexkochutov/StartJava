@@ -10,9 +10,9 @@ public class VariablesTheme {
         double cost = 150_000.50;
         boolean isOld = true;
         char cpuLogo = 'I';
-        System.out.println("Количетво ядер - " + coreCount + " ядра;\n" + 
-                "Частота процессора - " + cpuRate + " МегаГерц;\n" + 
-                "Размер оперативной памяти - " + memorySize + " МегаБайт;\n" +
+        System.out.println("Количество ядер - " + coreCount + " ядра;\n" + 
+                "Частота процессора - " + cpuRate + " Мегагерц;\n" + 
+                "Размер оперативной памяти - " + memorySize + " Мегабайт;\n" +
                 "Размер диска -" + diskSize + " Байт;\n" +
                 "Диагональ экрана -" + screenSize + " дюймов;\n" +
                 "Стоимость - " + cost + " рублей;\n" +
@@ -72,12 +72,12 @@ public class VariablesTheme {
         char and = '&';
         char at = '@';
         char caret = '^';
-        char under = '_';
+        char underline = '_';
         System.out.println((int) hash + " - " + hash + "\n" +
                 (int) and + " - " + and + "\n" +
                 (int) at + " - " + at + "\n" +
                 (int) caret + " - " + caret + "\n" +
-                (int) under + " - " + under + "\n");
+                (int) underline + " - " + underline + "\n");
 
         System.out.println("#7. Вывод в консоль ASCII-арт Дюка");
         char slash = '/';
@@ -89,7 +89,8 @@ public class VariablesTheme {
                 "   " + slash + "  " + backSlash + "\n" +
                 "  " + slash + underscore + openedBracket + " " + closedBracket + backSlash + "\n" +
                 " " + slash + "      " + backSlash + "\n" +
-                slash + underscore + underscore + underscore + underscore + slash + backSlash + underscore + underscore + backSlash + "\n");
+                slash + underscore + underscore + underscore + underscore + slash + backSlash +
+                underscore + underscore + backSlash + "\n");
 
         System.out.println("#8. Вывод количества сотен, десятков и единиц числа");
         int number = 123;
