@@ -29,11 +29,10 @@ public class CyclesTheme {
 
         System.out.println("\n\n#3. Вывод реверсивного числа и суммы его цифр");
         int num = 1234;
-        int digit = 0;
         int sum = 0;
         System.out.print("Исходное число в обратном порядке - ");
         while (num > 0) {
-            digit = num % 10;
+            int digit = num % 10;
             System.out.print(digit);
             sum += digit;
             num /= 10;
@@ -58,13 +57,13 @@ public class CyclesTheme {
 
         System.out.println("\n\n#5. Проверка количества двоек на четность/нечетность");
         num = 3242592;
-        int temp = num;
+        int copyNum = num;
         int countTwos = 0;
-        while (temp > 0) {
-            if (temp % 10 == 2) {
+        while (copyNum > 0) {
+            if (copyNum % 10 == 2) {
                 countTwos++;
             }
-            temp /= 10;
+            copyNum /= 10;
         }
         System.out.print("Число " + num + " содержит " + countTwos);
         if (countTwos % 2 == 0) {
@@ -137,7 +136,7 @@ public class CyclesTheme {
 
         System.out.println("\n#8. Проверка, является ли число палиндромом");
         num = 1234321;
-        temp = num;
+        int temp = num;
         int result = 0;
         while (temp > 0) {
             result = (result * 10) + (temp % 10);
