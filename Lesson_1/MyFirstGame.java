@@ -1,22 +1,20 @@
 public class MyFirstGame {
 
     public static void main(String[] args) {
-        int intervalBegin = 1;
-        int intervalEnd  = 100;
+        int rangeBegin = 1;
+        int rangeEnd  = 100;
         int secretNumber = 76;
-        boolean isGuessed = false;
-        while (!isGuessed) {
-            int guessNumber = (intervalBegin + intervalEnd) / 2;
-            if (guessNumber == secretNumber) {
-                isGuessed = true;
-                System.out.println("Вы победили!");
-            } else if (guessNumber < secretNumber){
+        int guessNumber;
+        do {
+            guessNumber = (rangeBegin + rangeEnd) / 2;
+            if (guessNumber < secretNumber){
                 System.out.println("Число " + guessNumber + " меньше того, что загадал компьютер.");
-                intervalBegin = guessNumber;
-            } else {
+                rangeBegin = guessNumber;
+            } else if (guessNumber > secretNumber) {
                 System.out.println("Число " + guessNumber + " больше того, что загадал компьютер.");
-                intervalEnd = guessNumber;
+                rangeEnd = guessNumber;
             }
-        }
+        } while (guessNumber != secretNumber);
+        System.out.println("Вы победили!");
     }
 }
