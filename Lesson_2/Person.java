@@ -7,22 +7,22 @@ public class Person {
     int age = 30;
 
     void go() {
-        System.out.println(name + "идет");
+        System.out.println(name + " идет");
     }
 
     void sit() {
-        System.out.println(name + "сидит");
+        System.out.println(name + " сидит");
     }
 
     void run() {
-        System.out.println(name + "бежит");
+        System.out.println(name + " бежит");
     }
 
     void talk() {
-        System.out.println(name + "говорит");
+        System.out.println(name + " говорит");
     }
 
     void learnJava() {
-        System.out.println(name + "изучает Java");
+        System.out.println(name + " изучает Java");
     }
 }
