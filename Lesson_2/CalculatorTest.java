@@ -20,7 +20,7 @@ public class CalculatorTest {
                     + calc.getOperator() + " " + calc.getB() + "\" = " + calc.calculate());
 
             String answer = "";
-            while (!(answer.equals("yes") || answer.equals("no"))) {
+            while (!("yes".equals(answer) || "no".equals(answer))) {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 answer = scanner.next();
                 if (answer.equals("yes")) {
