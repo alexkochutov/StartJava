@@ -3,10 +3,11 @@ import java.util.Scanner;
 public class CalculatorTest {
 
     public static void main(String[] args) {
-        boolean repeat = false;
+        String repeat;
         Calculator calc = new Calculator();
         Scanner scanner = new Scanner(System.in);
         do {
+            repeat = "";
             System.out.print("Введите первое число: ");
             calc.setA(scanner.nextInt());
 
@@ -19,16 +20,10 @@ public class CalculatorTest {
             System.out.println("Результат выражения \"" + calc.getA() + " "
                     + calc.getOperator() + " " + calc.getB() + "\" = " + calc.calculate());
 
-            String answer = "";
-            while (!("yes".equals(answer) || "no".equals(answer))) {
+            while (!("yes".equals(repeat) || "no".equals(repeat))) {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-                answer = scanner.next();
-                if (answer.equals("yes")) {
-                    repeat = true;
-                } else if (answer.equals("no")) {
-                    repeat = false;
-                }
+                repeat = scanner.next();
             }
-        } while (repeat);
+        } while ("yes".equals(repeat));
     }
 }

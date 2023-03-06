@@ -28,55 +28,25 @@ public class Calculator {
         return operator;
     }
 
-    private int add() {
-        return a + b;
-    }
-
-    private int subtract() {
-        return a - b;
-    }
-
-    private int multiply() {
-        return a * b;
-    }
-
-    private int divide() {
-        return a / b;
-    }
-
-    private int power() {
-        int result = 1;
-        for (int i = 0; i < b; i++) {
-            result *= a;
-        }
-        return result;
-    }
-
-    private int getReminder() {
-        return a % b;
-    }
-
     public int calculate() {
         int result = 0;
         switch (operator) {
         case '+':
-            result = add();
-            break;
+            return a + b;
         case '-':
-            result = subtract();
-            break;
+            return a - b;
         case '*':
-            result = multiply();
-            break;
+            return a * b;
         case '/':
-            result = divide();
-            break;
+            return a / b;
         case '^':
-            result = power();
-            break;
+            result = 1;
+            for (int i = 0; i < b; i++) {
+            result *= a;
+            }
+            return result;
         case '%':
-            result = getReminder();
-            break;
+            return a % b;
         }
         return result;
     }
