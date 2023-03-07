@@ -7,7 +7,6 @@ public class CalculatorTest {
         Calculator calc = new Calculator();
         Scanner scanner = new Scanner(System.in);
         do {
-            repeat = "";
             System.out.print("Введите первое число: ");
             calc.setA(scanner.nextInt());
 
@@ -20,10 +19,10 @@ public class CalculatorTest {
             System.out.println("Результат выражения \"" + calc.getA() + " "
                     + calc.getOperator() + " " + calc.getB() + "\" = " + calc.calculate());
 
-            while (!("yes".equals(repeat) || "no".equals(repeat))) {
+            do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 repeat = scanner.next();
-            }
+            } while (!"yes".equals(repeat) && !"no".equals(repeat));
         } while ("yes".equals(repeat));
     }
 }
