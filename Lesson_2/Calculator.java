@@ -42,7 +42,7 @@ public class Calculator {
             case '^':
                 result = 1;
                 for (int i = 0; i < b; i++) {
-                result *= a;
+                    result *= a;
                 }
                 return result;
             case '%':
