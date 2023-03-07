@@ -16,13 +16,22 @@ public class GuessNumber {
         System.out.println("Компьютер загадал число в полуинтервале (0, 100]");
     }
 
-    private void scanAnswer(Player player) {
+    public void start() {
+        do {
+            inputNumber(player1);
+            if (compareNumbers(player1)) break;
+            inputNumber(player2);
+            if (compareNumbers(player2)) break;
+        } while (!isGuessed);
+    }
+
+    private void inputNumber(Player player) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ход игрока " + player.getName() + ": Введите число: ");
         player.setNumber(scanner.nextInt());
     }
 
-    private void checkAnswer(Player player) {
+    private boolean compareNumbers(Player player) {
         int number = player.getNumber();
         if (number == secret) {
             System.out.println("Вы угадали!!! Игрок " + player.getName() + " выиграл!");
@@ -36,16 +45,6 @@ public class GuessNumber {
             }
             System.out.println("того, что загадал компьютер");
         }
-    }
-
-    public void startGame() {
-        do {
-            scanAnswer(player1);
-            checkAnswer(player1);
-            if (isGuessed) break;
-            scanAnswer(player2);
-            checkAnswer(player2);
-            if (isGuessed) break;
-        } while (!isGuessed);
+        return isGuessed;
     }
 }
