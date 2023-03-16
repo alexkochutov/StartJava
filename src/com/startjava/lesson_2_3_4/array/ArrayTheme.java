@@ -7,12 +7,11 @@ public class ArrayTheme {
         int[] intArray = {7, 1, 4, 2, 6, 5, 3};
         System.out.print("Массив до изменения: ");
         printIntArray(intArray);
-        int length = intArray.length;
-        int buffer;
-        for (int i = 0; i < length / 2; i++) {
-            buffer = intArray[i];
-            intArray[i] = intArray[length - 1 - i];
-            intArray[length - 1 - i] = buffer;
+        int length = intArray.length - 1;
+        for (int i = 0; i <= length / 2; i++, length--) {
+            int buffer = intArray[i];
+            intArray[i] = intArray[length];
+            intArray[length] = buffer;
         }
         System.out.print("\nМассив после изменения: ");
         printIntArray(intArray);
@@ -37,12 +36,12 @@ public class ArrayTheme {
         for (int i = 0; i < length; i++) {
             floatArray[i] = (float) Math.random();
         }
-        int middleCellIndex = length / 2;
+        float middleCellNumber = floatArray[length / 2];
         System.out.println("Исходный массив:");
         printFloatArray(floatArray);
         int zeroedCellsCount = 0;
         for (int i = 0; i < length; i++) {
-            if (floatArray[i] > floatArray[middleCellIndex]) {
+            if (floatArray[i] > middleCellNumber) {
                 floatArray[i] = 0f;
                 zeroedCellsCount++;
             }
@@ -52,57 +51,58 @@ public class ArrayTheme {
         System.out.print("Количество обнуленных ячеек: " + zeroedCellsCount);
 
         System.out.println("\n\n#4. Вывод элементов массива лесенкой в обратном порядке");
-        char[] capitalLettersArray = new char[26];
-        length = capitalLettersArray.length;
+        char[] alphabet = new char[26];
+        length = alphabet.length;
         for (int i = 0; i < length; i++) {
-            capitalLettersArray[i] = (char) ('A' + i);
+            alphabet[i] = (char) ('A' + i);
         }
         for (int i = 0; i < length; i++) {
             for (int j = length - 1; j >= length - 1 - i; j--) {
-                System.out.print(capitalLettersArray[j]);
+                System.out.print(alphabet[j]);
             }
-            System.out.println("");
+            System.out.println();
         }
 
         System.out.println("\n#5. Генерация уникальных чисел");
         intArray = new int[30];
         length = intArray.length;
-        int temp;
         for (int i = 0; i < length; i++) {
+            int randomNum;
             do {
-                temp = (int) (60 + Math.random() * 40);
-            } while (checkNumber(intArray, temp));
-            intArray[i] = temp;
+                randomNum = (int) (60 + Math.random() * 40);
+            } while (!isUnique(intArray, randomNum));
+            intArray[i] = randomNum;
         }
         sortArray(intArray);
         printIntArrayByTen(intArray);
 
         System.out.println("\n#6. Копирование не пустых строк");
-        String[] stringArray = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
-        length = stringArray.length;
-        int copyArraySize = 0;
-        for (int i = 0; i < length; i++) {
-            if (!stringArray[i].isBlank()) {
-                copyArraySize++;
+        String[] srcStrings = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
+        length = srcStrings.length;
+        int countNotBlankStrings = 0;
+        for (String string : srcStrings) {
+            if (!string.isBlank()) {
+                countNotBlankStrings++;
             }
         }
-        String[] copyArray = new String[copyArraySize];
+        String[] destStrings = new String[countNotBlankStrings];
         int sourcePointer = 0;
         int destPointer = 0;
         int stringsCount = 0;
         for (int i = 0; i < length; i++) {
-            if (!stringArray[i].isBlank()) {
+            if (srcStrings[i].isBlank()) {
+                if ((stringsCount != 0)) {
+                    sourcePointer = i - stringsCount;
+                    System.arraycopy(srcStrings, sourcePointer, destStrings, destPointer, stringsCount);
+                    destPointer += stringsCount;
+                    stringsCount = 0;
+                }
+            } else {
                 stringsCount++;
             }
-            if (stringArray[i].isBlank() && (stringsCount != 0)) {
-                sourcePointer = i - stringsCount;
-                System.arraycopy(stringArray, sourcePointer, copyArray, destPointer, stringsCount);
-                destPointer += stringsCount;
-                stringsCount = 0;
-            }
         }
-        printStringArray(stringArray);
-        printStringArray(copyArray);
+        printStringArray(srcStrings);
+        printStringArray(destStrings);
     }
 
     private static void printIntArray(int[] array) {
@@ -122,14 +122,13 @@ public class ArrayTheme {
         System.out.println();
     }
 
-    private static boolean checkNumber(int[] array, int number) {
-        int length = array.length;
-        for (int i = 0; i < length; i++) {
-            if (array[i] == number) {
-                return true;
+    private static boolean isUnique(int[] array, int number) {
+        for (int item : array) {
+            if (item == number) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     private static void sortArray(int[] array) {
