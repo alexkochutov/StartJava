@@ -22,14 +22,10 @@ public class Calculator {
         }
     }
 
-    private static void setOperator(char operation) {
-        operator = operation;
-    }
-
     public static double calculate(String expression) throws IllegalArgumentException {
         String[] elements = expression.split(" ");
         setA(elements[0]);
-        setOperator(elements[1].charAt(0));
+        operator = elements[1].charAt(0);
         setB(elements[2]);
 
         return switch (operator) {
