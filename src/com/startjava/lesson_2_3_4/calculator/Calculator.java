@@ -2,43 +2,48 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    private int a;
-    private int b;
-    private char operator;
+    private static int a;
+    private static int b;
+    private static char operator;
 
-    private void setA(int a) {
-        this.a = a;
-    }
-
-    private void setB(int b) {
-        this.b = b;
-    }
-
-    private void setOperator(char operator) {
-        this.operator = operator;
-    }
-
-    public double calculate(String expression) {
-        String[] elements = expression.split(" ");
-        setA(Integer.parseInt(elements[0]));
-        setOperator(elements[1].charAt(0));
-        setB(Integer.parseInt(elements[2]));
-
-        double result = 0;
-        switch (operator) {
-            case '+':
-                return Math.addExact(a, b);
-            case '-':
-                return Math.subtractExact(a, b);
-            case '*':
-                return Math.multiplyExact(a, b);
-            case '/':
-                return (double) a / b;
-            case '^':
-                return Math.pow(a, b);
-            case '%':
-                return a % b;
+    private static void setA(String operand) throws IllegalArgumentException {
+        if (isCorrect(operand)) {
+            a = Integer.parseInt(operand);
+        } else {
+            throw new IllegalArgumentException("Первый агрумент не соответствует требованиям");
         }
-        return result;
+    }
+
+    private static void setB(String operand) throws IllegalArgumentException {
+        if (isCorrect(operand)) {
+            b = Integer.parseInt(operand);
+        } else {
+            throw new IllegalArgumentException("Второй агрумент не соответствует требованиям");
+        }
+    }
+
+    private static void setOperator(char operation) {
+        operator = operation;
+    }
+
+    public static double calculate(String expression) throws IllegalArgumentException {
+        String[] elements = expression.split(" ");
+        setA(elements[0]);
+        setOperator(elements[1].charAt(0));
+        setB(elements[2]);
+
+        return switch (operator) {
+            case '+' -> Math.addExact(a, b);
+            case '-' -> Math.subtractExact(a, b);
+            case '*' -> Math.multiplyExact(a, b);
+            case '/' -> (double) a / b;
+            case '^' -> Math.pow(a, b);
+            case '%' -> a % b;
+            default -> 0;
+        };
+    }
+
+    private static boolean isCorrect(String operand) {
+        return ((Integer.parseInt(operand) > 0) && (Integer.parseInt(operand) % 1 == 0));
     }
 }
