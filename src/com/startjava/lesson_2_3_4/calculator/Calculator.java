@@ -6,27 +6,8 @@ public class Calculator {
     private static int b;
     private static char operator;
 
-    private static void setA(String operand) throws IllegalArgumentException {
-        if (isCorrect(operand)) {
-            a = Integer.parseInt(operand);
-        } else {
-            throw new IllegalArgumentException("Первый агрумент не соответствует требованиям");
-        }
-    }
-
-    private static void setB(String operand) throws IllegalArgumentException {
-        if (isCorrect(operand)) {
-            b = Integer.parseInt(operand);
-        } else {
-            throw new IllegalArgumentException("Второй агрумент не соответствует требованиям");
-        }
-    }
-
-    public static double calculate(String expression) throws IllegalArgumentException {
-        String[] elements = expression.split(" ");
-        setA(elements[0]);
-        operator = elements[1].charAt(0);
-        setB(elements[2]);
+    public static double calculate(String expression) {
+        parseExpression(expression);
 
         return switch (operator) {
             case '+' -> Math.addExact(a, b);
@@ -37,6 +18,21 @@ public class Calculator {
             case '%' -> a % b;
             default -> 0;
         };
+    }
+
+    private static void parseExpression(String expression) {
+        String[] elements = expression.split(" ");
+        if (isCorrect(elements[0])) {
+            a = Integer.parseInt(elements[0]);
+        } else {
+            throw new IllegalArgumentException("Первый аргумент не соответствует требованиям");
+        }
+        if (isCorrect(elements[2])) {
+            b = Integer.parseInt(elements[2]);
+        } else {
+            throw new IllegalArgumentException("Второй аргумент не соответствует требованиям");
+        }
+        operator = elements[1].charAt(0);
     }
 
     private static boolean isCorrect(String operand) {

@@ -9,18 +9,16 @@ public class CalculatorTest {
         String repeat = "yes";
         do {
             if ("yes".equals(repeat)) {
-                double result = 0d;
-                boolean isValid;
+                double result;
                 do {
-                    isValid = true;
                     System.out.print("Введите математическое выражение: ");
                     try {
                         result = Calculator.calculate(scanner.nextLine());
+                        break;
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
-                        isValid = false;
                     }
-                } while (!isValid);
+                } while (true);
                 System.out.printf((result % 1 == 0) ? "%.0f%n" : "%.3f%n", result);
             }
             System.out.print("Хотите продолжить вычисления? [yes/no]: ");
