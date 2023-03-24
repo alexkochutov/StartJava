@@ -25,12 +25,14 @@ public class Calculator {
         if (isCorrect(elements[0])) {
             a = Integer.parseInt(elements[0]);
         } else {
-            throw new IllegalArgumentException("Первый аргумент не соответствует требованиям");
+            throw new IllegalArgumentException("Первый аргумент не соответствует требованиям:" +
+                    " аргумент меньше либо равен нулю или представлен не целым числом");
         }
         if (isCorrect(elements[2])) {
             b = Integer.parseInt(elements[2]);
         } else {
-            throw new IllegalArgumentException("Второй аргумент не соответствует требованиям");
+            throw new IllegalArgumentException("Второй аргумент не соответствует требованиям:" +
+                    " аргумент меньше либо равен нулю или представлен не целым числом");
         }
         operator = elements[1].charAt(0);
     }
