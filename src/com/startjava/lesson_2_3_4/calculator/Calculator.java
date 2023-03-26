@@ -22,19 +22,17 @@ public class Calculator {
 
     private static void parseExpression(String expression) {
         String[] elements = expression.split(" ");
-        if (isCorrect(elements[0])) {
-            a = Integer.parseInt(elements[0]);
-        } else {
-            throw new IllegalArgumentException("Первый аргумент не соответствует требованиям:" +
-                    " аргумент меньше либо равен нулю или представлен не целым числом");
-        }
-        if (isCorrect(elements[2])) {
-            b = Integer.parseInt(elements[2]);
-        } else {
-            throw new IllegalArgumentException("Второй аргумент не соответствует требованиям:" +
-                    " аргумент меньше либо равен нулю или представлен не целым числом");
-        }
+        a = setOperand(elements[0]);
+        b = setOperand(elements[2]);
         operator = elements[1].charAt(0);
+    }
+
+    private static int setOperand(String element) {
+        if (isCorrect(element)) {
+            return Integer.parseInt(element);
+        } else {
+            throw new IllegalArgumentException("Аргумент должен быть натуральным числом");
+        }
     }
 
     private static boolean isCorrect(String operand) {
