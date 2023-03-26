@@ -3,11 +3,11 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    public static final int ATTEMPT_LIMIT = 10;
+    public static final int capacity = 10;
 
     private String name;
-    private int attemptCount = 0;
-    private int[] answers = new int[ATTEMPT_LIMIT];
+    private int attemptCount;
+    private int[] answers = new int[capacity];
 
     public Player(String name) {
         this.name = name;
@@ -21,21 +21,25 @@ public class Player {
         return attemptCount;
     }
 
-    public void setAnswer(int number) {
+    public void addAnswer(int number) {
         answers[attemptCount] = number;
-        ++attemptCount;
+        attemptCount++;
     }
 
     public int getAnswer() {
-        return answers[getAttemptCount() - 1];
+        return answers[attemptCount - 1];
     }
 
     public int[] getAllAnswers() {
-        return Arrays.copyOf(answers, getAttemptCount());
+        return Arrays.copyOf(answers, attemptCount);
     }
 
     public void clearAnswers() {
-        Arrays.fill(answers, 0, getAttemptCount() - 1, 0);
+        Arrays.fill(answers, 0, attemptCount, 0);
         attemptCount = 0;
+    }
+
+    public boolean checkAttempts() {
+        return getAttemptCount() < capacity;
     }
 }
