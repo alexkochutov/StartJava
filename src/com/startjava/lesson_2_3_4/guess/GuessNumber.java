@@ -16,7 +16,7 @@ public class GuessNumber {
     public void start() {
         init();
         setSecretNumber();
-        System.out.println("У каждого игрока по " + Player.capacity + " попыток");
+        System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
         do {
             if (!hasAttempts(player1)) break;
             inputNumber(player1);
@@ -34,7 +34,7 @@ public class GuessNumber {
     }
 
     private void initPlayers(Player player) {
-        if (player.getAttemptCount() != 0) {
+        if (player.getCountAttempt() != 0) {
             player.clearAnswers();
         }
     }
@@ -60,7 +60,7 @@ public class GuessNumber {
         int number = player.getAnswer();
         if (number == secretNumber) {
             System.out.println("Игрок " + player.getName() + " угадал число \"" + secretNumber +
-                    "\" с " + player.getAttemptCount() + " попытки");
+                    "\" с " + player.getCountAttempt() + " попытки");
             return true;
         }
         System.out.println("Число " + number + ((number > secretNumber) ? " больше " : " меньше ") +
