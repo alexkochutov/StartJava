@@ -22,20 +22,16 @@ public class Calculator {
 
     private static void parseExpression(String expression) {
         String[] elements = expression.split(" ");
-        a = setOperand(elements[0]);
-        b = setOperand(elements[2]);
+        a = checkOperand(elements[0]);
+        b = checkOperand(elements[2]);
         operator = elements[1].charAt(0);
     }
 
-    private static int setOperand(String element) {
-        if (isCorrect(element)) {
-            return Integer.parseInt(element);
-        } else {
-            throw new IllegalArgumentException("Аргумент должен быть натуральным числом");
+    private static int checkOperand(String element) {
+        int result = Integer.parseInt(element);
+        if ((result > 0) && (result % 1 == 0)) {
+            return result;
         }
-    }
-
-    private static boolean isCorrect(String operand) {
-        return ((Integer.parseInt(operand) > 0) && (Integer.parseInt(operand) % 1 == 0));
+        throw new IllegalArgumentException("Аргумент должен быть натуральным числом");
     }
 }
