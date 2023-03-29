@@ -3,11 +3,12 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    public static final int CAPACITY = 10;
+    public final static int CAPACITY = 10;
 
     private String name;
     private int countAttempts;
     private int[] answers = new int[CAPACITY];
+    private int score;
 
     public Player(String name) {
         this.name = name;
@@ -21,9 +22,17 @@ public class Player {
         return countAttempts;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void addAnswer(int number) {
-        answers[countAttempts] = number;
-        countAttempts++;
+        if ((number > 0) && (number <= 100)) {
+            answers[countAttempts] = number;
+            countAttempts++;
+        } else {
+            throw new IllegalArgumentException("Введенное число не входит в полуинтервал (0, 100]");
+        }
     }
 
     public int getAnswer() {
@@ -41,5 +50,9 @@ public class Player {
 
     public boolean checkAttempts() {
         return countAttempts < CAPACITY;
+    }
+
+    public void increaseScore() {
+        score++;
     }
 }

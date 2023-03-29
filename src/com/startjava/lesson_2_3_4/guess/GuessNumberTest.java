@@ -13,7 +13,10 @@ public class GuessNumberTest {
         System.out.print("Введите имя второго игрока: ");
         Player player2 = new Player(scanner.next());
 
-        GuessNumber game = new GuessNumber(player1, player2);
+        System.out.print("Введите имя третьего игрока: ");
+        Player player3 = new Player(scanner.next());
+
+        GuessNumber game = new GuessNumber(player1, player2, player3);
         String repeat = "yes";
         do {
             if ("yes".equals(repeat)) {
