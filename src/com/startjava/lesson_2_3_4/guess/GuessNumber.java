@@ -4,10 +4,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
-    private final int ROUND_COUNT = 3;
+    private final static int ROUND_LIMIT = 3;
 
     private Player[] players;
-    private boolean isRoundFinished;
     private int secretNumber;
 
     public GuessNumber(Player... players) {
@@ -16,17 +15,23 @@ public class GuessNumber {
 
     public void start() {
         shuffle();
-        for (int i = 1; i <= ROUND_COUNT; i++) {
-            isRoundFinished = false;
+        for (int i = 1; i <= ROUND_LIMIT; i++) {
+            boolean isRoundFinished = false;
             System.out.println("***************** РАУНД " + i + " ******************");
             init();
             setSecretNumber();
             System.out.println("У каждого игрока по " + Player.CAPACITY + " попыток");
             do {
                 for (Player player : players) {
-                    if (!hasAttempts(player)) break;
+                    if (!hasAttempts(player)) {
+                        isRoundFinished = true;
+                        break;
+                    }
                     inputNumber(player);
-                    if (isGuessed(player)) break;
+                    if (isGuessed(player)) {
+                        isRoundFinished = true;
+                        break;
+                    }
                 }
             } while(!isRoundFinished);
             showRoundResult();
@@ -55,13 +60,9 @@ public class GuessNumber {
 
     private void init() {
         for (Player player : players) {
-            initPlayers(player);
-        }
-    }
-
-    private void initPlayers(Player player) {
-        if (player.getCountAttempt() != 0) {
-            player.clearAnswers();
+            if (player.getCountAttempts() != 0) {
+                player.clear();
+            }
         }
     }
 
@@ -73,7 +74,6 @@ public class GuessNumber {
     private boolean hasAttempts(Player player) {
         if (player.checkAttempts()) return true;
         System.out.println("У игрока " + player.getName() + " закончились попытки");
-        isRoundFinished = true;
         return false;
     }
 
@@ -94,9 +94,8 @@ public class GuessNumber {
         int number = player.getAnswer();
         if (number == secretNumber) {
             System.out.println("Игрок " + player.getName() + " угадал число \"" + secretNumber +
-                    "\" с " + player.getCountAttempt() + " попытки");
+                    "\" с " + player.getCountAttempts() + " попытки");
             player.increaseScore();
-            isRoundFinished = true;
             return true;
         }
         System.out.println("Число " + number + ((number > secretNumber) ? " больше " : " меньше ") +
@@ -119,7 +118,7 @@ public class GuessNumber {
     }
 
     private void showGameResult() {
-        System.out.print("По результатам " + ROUND_COUNT + " раундов ");
+        System.out.print("По результатам " + ROUND_LIMIT + " раундов ");
         if (players[0].getScore() == players[1].getScore()) {
             System.out.println("произошла ничья!");
         } else {

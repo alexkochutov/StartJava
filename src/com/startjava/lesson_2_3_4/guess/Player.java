@@ -18,21 +18,8 @@ public class Player {
         return name;
     }
 
-    public int getCountAttempt() {
+    public int getCountAttempts() {
         return countAttempts;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void addAnswer(int number) {
-        if ((number > 0) && (number <= 100)) {
-            answers[countAttempts] = number;
-            countAttempts++;
-        } else {
-            throw new IllegalArgumentException("Введенное число не входит в полуинтервал (0, 100]");
-        }
     }
 
     public int getAnswer() {
@@ -43,16 +30,28 @@ public class Player {
         return Arrays.copyOf(answers, countAttempts);
     }
 
-    public void clearAnswers() {
+    public void addAnswer(int number) {
+        if ((number <= 0) || (number > 100)) {
+            throw new IllegalArgumentException("Введенное число не входит в полуинтервал (0, 100]");
+        }
+        answers[countAttempts] = number;
+        countAttempts++;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void increaseScore() {
+        score++;
+    }
+
+    public void clear() {
         Arrays.fill(answers, 0, countAttempts, 0);
         countAttempts = 0;
     }
 
     public boolean checkAttempts() {
         return countAttempts < CAPACITY;
-    }
-
-    public void increaseScore() {
-        score++;
     }
 }
