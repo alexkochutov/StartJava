@@ -17,11 +17,11 @@ public class Bookshelf {
         return maxLength;
     }
 
-    public boolean addBook(String author, String title, int publishYear) {
-        if (countBooks == CAPACITY) {
+    public boolean addBook(Book book) {
+        if (countBooks >= CAPACITY) {
             return false;
         }
-        books[countBooks] = new Book(author, title, publishYear);
+        books[countBooks] = book;
         int length = books[countBooks].getLength();
         if (maxLength < length) {
             maxLength = length;
@@ -32,29 +32,21 @@ public class Bookshelf {
 
     public Book findBook(String title) {
         int index = findIndex(title);
-        if (index == -1) {
-            return null;
-        }
-        return books[index];
+        return (index == -1) ? null : books[index];
     }
 
     public boolean removeBook(String title) {
-        int shelfNumber = findIndex(title);
-        if (shelfNumber != -1) {
-            int length = books[shelfNumber].getLength();
-            if (shelfNumber + 1 == countBooks) {
-                clearShelf(shelfNumber);
+        int index = findIndex(title);
+        if (index != -1) {
+            int length = books[index].getLength();
+            if (index + 1 == countBooks) {
+                clearShelf(index);
             } else {
-                System.arraycopy(books, shelfNumber + 1, books, shelfNumber, countBooks - (shelfNumber + 1));
+                System.arraycopy(books, index + 1, books, index, countBooks - (index + 1));
             }
             countBooks--;
             if (maxLength == length) {
-                maxLength = 0;
-                for (Book book : books) {
-                    if (maxLength < book.getLength()) {
-                        maxLength = book.getLength();
-                    }
-                }
+                calcMaxLength();
             }
             return true;
         }
@@ -92,5 +84,14 @@ public class Bookshelf {
 
     private void clearShelf(int number) {
         books[number] = null;
+    }
+
+    private void calcMaxLength() {
+        maxLength = 0;
+        for (int i = 0; i < countBooks; i++) {
+            if (maxLength < books[i].getLength()) {
+                maxLength = books[i].getLength();
+            }
+        }
     }
 }

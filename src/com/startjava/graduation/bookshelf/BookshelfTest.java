@@ -23,108 +23,28 @@ import java.util.Scanner;
 
 public class BookshelfTest {
     private final static Bookshelf bookshelf = new Bookshelf();
+    private final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         boolean isRun = true;
         do {
             showShelves();
-            int operation;
-            do {
-                showMenu();
-                System.out.println("Введите номер действия");
-                try {
-                    operation = Integer.parseInt(scanner.nextLine());
-                    if ((operation >= 1) && (operation <= 5)) {
-                        break;
-                    }
-                    throw new IllegalArgumentException();
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Введен недопустимый номер действия! Попробуйте еще раз...");
-                    waitForEnter();
-                }
-            } while(true);
-            switch (operation) {
+            showMenu();
+            switch (readMenuItem()) {
                 case 1 -> save();
                 case 2 -> search();
                 case 3 -> delete();
                 case 4 -> clear();
                 case 5 -> isRun = false;
             }
+            waitForEnter();
         } while(isRun);
-    }
-
-    public static void save() {
-        if (bookshelf.getCountBooks() == Bookshelf.CAPACITY) {
-            System.out.println("Невозможно сохранить книгу! Шкаф заполнен!");
-            waitForEnter();
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            String author;
-            String title;
-            int publishYear;
-            do {
-                System.out.println("Введите описание книги в формате: \"автор\", \"название\", год издания");
-                String[] request = scanner.nextLine().split("\", ");
-                try {
-                    author = request[0].replaceAll("\"", "");
-                    title = request[1].replaceAll("\"", "");
-                    publishYear = Integer.parseInt(request[2]);
-                    break;
-                } catch(RuntimeException e) {
-                    System.out.println("Описание книги введено с нарушением формата!  Попробуйте еще раз...");
-                    waitForEnter();
-                }
-            } while(true);
-            System.out.println((bookshelf.addBook(author, title, publishYear)) ?
-                    "Книга успешно сохранена!":
-                    "Сохранить книгу не удалось! Шкаф заполнен!");
-            waitForEnter();
-        }
-    }
-
-    public static void search() {
-        if (bookshelf.getCountBooks() == 0) {
-            System.out.println("В шкафу нет ни одной книги!");
-            waitForEnter();
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Введите название искомой книги");
-            String request = scanner.nextLine();
-            Book book = bookshelf.findBook(request);
-            System.out.println(book == null ?
-                    "Книга с таким названием не найдена!":
-                    "Найдена книга: " + book);
-            waitForEnter();
-        }
-    }
-
-    public static void delete() {
-        if (bookshelf.getCountBooks() == 0) {
-            System.out.println("В шкафу нет ни одной книги!");
-            waitForEnter();
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Введите название книги");
-            String request = scanner.nextLine();
-            System.out.println(bookshelf.removeBook(request) ?
-                    "Книга успешно удалена!":
-                    "Книга с таким названием отсутствует!");
-            waitForEnter();
-        }
-    }
-
-    public static void clear() {
-        System.out.println(bookshelf.clearShelves() ?
-                "Шкаф успешно очищен!":
-                "Шкаф и так пустой!");
-        waitForEnter();
     }
 
     private static void showShelves() {
         int countBooks = bookshelf.getCountBooks();
         if (countBooks == 0) {
-            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
+            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
         } else {
             Book[] books = bookshelf.getAllBooks();
             int shelfLength = bookshelf.getMaxLength() + 2;
@@ -143,7 +63,7 @@ public class BookshelfTest {
                 System.out.println("|" + dash + "|");
             }
             System.out.println("В шкафу " + bookshelf.getCountBooks() + " книг и " +
-                    bookshelf.getEmptyShelves() + " свободных полок");
+                    bookshelf.getEmptyShelves() + " свободных полок.");
         }
     }
 
@@ -158,12 +78,81 @@ public class BookshelfTest {
         System.out.println(menu);
     }
 
-    private static void waitForEnter() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Для продолжения работы нажмите Enter");
+    private static int readMenuItem() {
         do {
-            if (scanner.hasNextLine()) break;
+            System.out.println("Введите номер действия [1..5]:");
+            try {
+                int menuItem = Integer.parseInt(scanner.nextLine());
+                if ((menuItem >= 1) && (menuItem <= 5)) {
+                    return menuItem;
+                }
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Введен недопустимый номер действия! Попробуйте еще раз...");
+            }
+        } while(true);
+    }
+
+    private static void save() {
+        if (bookshelf.getCountBooks() == Bookshelf.CAPACITY) {
+            System.out.println("Невозможно сохранить книгу! Шкаф заполнен!");
+        } else {
+            String author;
+            String title;
+            int publishYear;
+            do {
+                System.out.println("Введите описание книги в формате: \"автор\", \"название\", год издания");
+                String[] description = scanner.nextLine().split("\", ");
+                try {
+                    author = description[0].replaceAll("\"", "");
+                    title = description[1].replaceAll("\"", "");
+                    publishYear = Integer.parseInt(description[2]);
+                    break;
+                } catch(RuntimeException e) {
+                    System.out.println("Описание книги введено с нарушением формата!  Попробуйте еще раз...");
+                }
+            } while(true);
+            System.out.println((bookshelf.addBook(new Book(author, title, publishYear))) ?
+                    "Книга успешно сохранена!":
+                    "Сохранить книгу не удалось! Шкаф заполнен!");
+        }
+    }
+
+    private static void search() {
+        if (bookshelf.getCountBooks() == 0) {
+            System.out.println("В шкафу нет ни одной книги!");
+        } else {
+            System.out.println("Введите название искомой книги в формате: \"название\"");
+            String title = scanner.nextLine().replaceAll("\"", "");
+            Book book = bookshelf.findBook(title);
+            System.out.println(book == null ?
+                    "Книга с таким названием не найдена!":
+                    "Найдена книга: " + book);
+        }
+    }
+
+    private static void delete() {
+        if (bookshelf.getCountBooks() == 0) {
+            System.out.println("В шкафу нет ни одной книги!");
+        } else {
+            System.out.println("Введите название книги в формате: \"название\"");
+            String title = scanner.nextLine().replaceAll("\"", "");
+            System.out.println(bookshelf.removeBook(title) ?
+                    "Книга успешно удалена!":
+                    "Книга с таким названием отсутствует!");
+        }
+    }
+
+    private static void clear() {
+        System.out.println(bookshelf.clearShelves() ?
+                "Шкаф успешно очищен!":
+                "Шкаф и так пустой!");
+    }
+
+    private static void waitForEnter() {
+        do {
             System.out.println("Для продолжения работы нажмите Enter");
+            if (scanner.nextLine().isEmpty()) break;
         } while(true);
     }
 }
