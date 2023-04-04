@@ -17,34 +17,28 @@ public class Bookshelf {
         return maxLength;
     }
 
-    public boolean addBook(Book book) {
+    public boolean add(Book book) {
         if (countBooks >= CAPACITY) {
             return false;
         }
         books[countBooks] = book;
-        int length = books[countBooks].getLength();
-        if (maxLength < length) {
-            maxLength = length;
-        }
         countBooks++;
+        calcMaxLength();
         return true;
     }
 
-    public Book findBook(String title) {
+    public Book find(String title) {
         int index = findIndex(title);
-        return (index == -1) ? null : books[index];
+        return (index > -1) ? books[index] : null;
     }
 
-    public boolean removeBook(String title) {
+    public boolean remove(String title) {
         int index = findIndex(title);
-        if (index != -1) {
+        if (index > -1) {
             int length = books[index].getLength();
-            if (index + 1 == countBooks) {
-                clearShelf(index);
-            } else {
-                System.arraycopy(books, index + 1, books, index, countBooks - (index + 1));
-            }
             countBooks--;
+            System.arraycopy(books, index + 1, books, index, countBooks - index);
+            books[countBooks] = null;
             if (maxLength == length) {
                 calcMaxLength();
             }
@@ -66,7 +60,7 @@ public class Bookshelf {
             return false;
         }
         for (int i = 0; i < countBooks; i++) {
-            clearShelf(i);
+            books[i] = null;
         }
         countBooks = 0;
         maxLength = 0;
@@ -80,10 +74,6 @@ public class Bookshelf {
             }
         }
         return -1;
-    }
-
-    private void clearShelf(int number) {
-        books[number] = null;
     }
 
     private void calcMaxLength() {

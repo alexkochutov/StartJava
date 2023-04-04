@@ -31,10 +31,10 @@ public class BookshelfTest {
             showShelves();
             showMenu();
             switch (readMenuItem()) {
-                case 1 -> save();
-                case 2 -> search();
-                case 3 -> delete();
-                case 4 -> clear();
+                case 1 -> addBook();
+                case 2 -> findBook();
+                case 3 -> removeBook();
+                case 4 -> clearBookShelf();
                 case 5 -> isRun = false;
             }
             waitForEnter();
@@ -68,14 +68,13 @@ public class BookshelfTest {
     }
 
     private static void showMenu() {
-        String menu = """
+        System.out.println("""
                 1. Сохранить <автор> <название> <год издания>
                 2. Найти <название>
                 3. Удалить <название>
                 4. Очистить шкаф
                 5. Выйти
-                """;
-        System.out.println(menu);
+                """);
     }
 
     private static int readMenuItem() {
@@ -86,14 +85,13 @@ public class BookshelfTest {
                 if ((menuItem >= 1) && (menuItem <= 5)) {
                     return menuItem;
                 }
-                throw new IllegalArgumentException();
             } catch (IllegalArgumentException e) {
                 System.out.println("Введен недопустимый номер действия! Попробуйте еще раз...");
             }
         } while(true);
     }
 
-    private static void save() {
+    private static void addBook() {
         if (bookshelf.getCountBooks() == Bookshelf.CAPACITY) {
             System.out.println("Невозможно сохранить книгу! Шкаф заполнен!");
         } else {
@@ -112,38 +110,38 @@ public class BookshelfTest {
                     System.out.println("Описание книги введено с нарушением формата!  Попробуйте еще раз...");
                 }
             } while(true);
-            System.out.println((bookshelf.addBook(new Book(author, title, publishYear))) ?
+            System.out.println((bookshelf.add(new Book(author, title, publishYear))) ?
                     "Книга успешно сохранена!":
                     "Сохранить книгу не удалось! Шкаф заполнен!");
         }
     }
 
-    private static void search() {
+    private static void findBook() {
         if (bookshelf.getCountBooks() == 0) {
             System.out.println("В шкафу нет ни одной книги!");
         } else {
             System.out.println("Введите название искомой книги в формате: \"название\"");
             String title = scanner.nextLine().replaceAll("\"", "");
-            Book book = bookshelf.findBook(title);
+            Book book = bookshelf.find(title);
             System.out.println(book == null ?
                     "Книга с таким названием не найдена!":
                     "Найдена книга: " + book);
         }
     }
 
-    private static void delete() {
+    private static void removeBook() {
         if (bookshelf.getCountBooks() == 0) {
             System.out.println("В шкафу нет ни одной книги!");
         } else {
             System.out.println("Введите название книги в формате: \"название\"");
             String title = scanner.nextLine().replaceAll("\"", "");
-            System.out.println(bookshelf.removeBook(title) ?
+            System.out.println(bookshelf.remove(title) ?
                     "Книга успешно удалена!":
                     "Книга с таким названием отсутствует!");
         }
     }
 
-    private static void clear() {
+    private static void clearBookShelf() {
         System.out.println(bookshelf.clearShelves() ?
                 "Шкаф успешно очищен!":
                 "Шкаф и так пустой!");
