@@ -59,9 +59,7 @@ public class Bookshelf {
         if (countBooks == 0) {
             return false;
         }
-        for (int i = 0; i < countBooks; i++) {
-            books[i] = null;
-        }
+        Arrays.fill(books, null);
         countBooks = 0;
         maxLength = 0;
         return true;
