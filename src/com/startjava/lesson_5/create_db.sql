@@ -5,7 +5,7 @@ CREATE DATABASE Jaegers;
 
 \c jaegers;
 
-CREATE TABLE Jaegers(
+CREATE TABLE Jaegers (
     id SERIAL,
     modelName TEXT,
     mark TEXT,
@@ -14,7 +14,8 @@ CREATE TABLE Jaegers(
     status TEXT,
     origin TEXT,
     launch DATE,
-    kaijuKill INT);
+    kaijuKill INT
+);
 
 \ir init_db.sql;
 \ir queries.sql;
